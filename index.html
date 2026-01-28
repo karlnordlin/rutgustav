@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>rut</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Times New Roman", serif;
+    background: white;
+}
+
+.container {
+    text-align: center;
+}
+
+img {
+    width: 300px;
+    display: block;
+    margin: 0 auto 12px;
+}
+
+h1 {
+    font-size: 16px;
+    font-weight: normal;
+    margin-bottom: 6px;
+}
+
+.buttons {
+    display: inline-flex;
+}
+
+button {
+    font-family: "Times New Roman", serif;
+    font-size: 16px;
+    padding: 4px 14px;
+    border: 1px solid #555;
+    background: #d9d9d9;
+    cursor: pointer;
+}
+
+#no {
+    margin-left: 4px;
+    position: relative;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <img id="mainImage" src="immagine-iniziale.png">
+    <h1 id="question">kan du passa rut idag?</h1>
+
+    <div class="buttons">
+        <button id="yes">ja</button>
+        <button id="no">nej</button>
+    </div>
+</div>
+
+<script>
+const yesBtn = document.getElementById("yes");
+const noBtn = document.getElementById("no");
+const img = document.getElementById("mainImage");
+const question = document.getElementById("question");
+
+let scale = 1;
+let offset = 0;
+let clickCount = 0;
+
+const noTexts = [
+    "är du säker att du inte vill?",
+    "är du säker att du är säker?",
+    "snälla jag ber dig",
+    "säg ja, kom igen säg ja",
+    "sista chansen"
+];
+
+noBtn.addEventListener("click", () => {
+    scale *= 1.2;
+    yesBtn.style.transform = `scale(${scale})`;
+
+    offset += 60;
+    noBtn.style.transform = `translateX(${offset}px)`;
+
+    if (clickCount < noTexts.length) {
+        noBtn.textContent = noTexts[clickCount];
+    }
+
+    clickCount++;
+
+    if (scale > 6) {
+        noBtn.style.display = "none";
+    }
+});
+
+yesBtn.addEventListener("click", () => {
+    img.src = "tener.png";
+    question.textContent = "yeee!!!";
+    noBtn.style.display = "none";
+    yesBtn.style.display = "none";
+});
+</script>
+
+</body>
+</html>
